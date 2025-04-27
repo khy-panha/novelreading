@@ -1,0 +1,113 @@
+.series-container{
+    display: flex;
+    justify-content: center;
+}
+
+.series-container {
+    display: flex; /* Aligns the items horizontally */
+}
+.series2{
+    padding-left: 20%;
+}
+.series-button {
+    width: 30px; /* Set width and height to define the circle */
+    height: 30px;
+    padding: 0; /* Remove padding to ensure circular shape */
+    border: 0;
+    border-radius: 50%; /* Makes the button circular */
+    background-color: #888c90;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex; /* Flexbox to center number */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    margin-right: 5px; /* Space between button and text */
+}
+
+.series-button:hover {
+    background-color: #525557;
+    color: #f8f9fa;
+}
+
+.series1, .series2 {
+    display: flex; /* Aligns button and text horizontally */
+    align-items: center; /* Center vertically in the container */
+}
+
+
+.input-container{
+    margin: 30px;
+    padding: 30px;
+}    
+.list-title{
+   margin-top: 20px;
+}
+.form-group{
+    margin-top: 20px;
+    width: 100%;
+}
+.form-control{
+    margin-top: 20px;
+    /* min-width: 300px; */
+}
+
+/* Input group styling */
+.status-group {
+    margin-top: 20px;
+}
+
+/* Label styling */
+.input-group label {
+    margin-top: 20px;
+    display: block;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Select dropdown styling */
+.custom-select {
+    height: 50px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+/* Styling for select dropdown on focus */
+.custom-select:focus {
+    border-color: #007bff;
+    outline: none;
+    background-color: #ffffff;
+}
+
+/* Styling for the select options */
+.custom-select option {
+    width: 300px;
+}
+
+
+.button-container {
+    max-width: 200px;       
+    max-height: 300px;
+    margin-top: 20px;
+}
+.create-button {    
+    border: 0px; 
+    border-radius: 20px; 
+    width: 150px;
+    height: 40px;
+    background-color: #888c90;
+    color: white; 
+    font-size: 14px; 
+    cursor: pointer;
+    padding-top: 5px;
+
+}
+.create-button:hover {
+    background-color: #525557; 
+    color: #f8f9fa; 
+}
