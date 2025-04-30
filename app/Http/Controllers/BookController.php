@@ -9,6 +9,7 @@ use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 // Removed unused imports
 use Intervention\Image\Facades\Image as Image;
@@ -17,22 +18,30 @@ class BookController extends Controller
 {
 
     public function index(Request $request) {
-        $books = Book::orderBy("created_at", "desc");
+        $query = Book::orderBy("created_at", "desc");
     
         if (!empty($request->keyword)) {
-            $books->where('title', 'like', '%' . $request->keyword . '%');
+            $query->where('title', 'like', '%' . $request->keyword . '%');
+        }
+        
+        if (Auth::user()->role !== 'admin') {
+            // Only normal user / author → see own books
+            $query->where('author', Auth::user()->name);
+
         }
     
-        $books = $books->where("status", 1)->paginate(9);
-        
-        // Fetch related books (you can adjust the conditions for related books as per your requirement)
-        $relatedBooks =Book::where('status',1)
-                                ->take(3)
-                                ->inRandomOrder()
-                                ->get();
+        // Filter by status and paginate
+        $books = $query->where("status", 1)->paginate(9);
+    
+        // Related Books (optional)
+        $relatedBooks = Book::where('status', 1)
+                            ->take(3)
+                            ->inRandomOrder()
+                            ->get();
+    
         return view('books.list', [
             'books' => $books,
-            'relatedBooks' => $relatedBooks // Pass relatedBooks to the view
+            'relatedBooks' => $relatedBooks
         ]);
     }
     public function create()
@@ -214,3 +223,4 @@ class BookController extends Controller
             return back()->with('success', 'You subscribed to this book.');
         }
 }
+

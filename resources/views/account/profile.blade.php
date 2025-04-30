@@ -5,13 +5,11 @@
     <div class="account-container">
         <div class="menu-on-top">
             <div class="p-2-subscribe">
-                <a href="{{ route('account.profile') }}">Subscribe</a>
+                <a href="{{ route('account.profile') }}">SUBSCRIBE</a>
             </div>
             <div class="p-3-dashbord">
             @if (in_array(Auth::user()->role, ['author', 'admin']))
-                <div class="p-2">
                     <a href="{{ route('books.index') }}">DASHBOARD</a>
-                </div>
             @endif
             </div>
 
@@ -34,14 +32,14 @@
             </div>
         </div>
         @if(Auth::user()->role === 'user' && Auth::user()->author_status === 'none')
-    <form method="POST" action="{{ route('account.requestAuthor') }}">
-        @csrf
-        <button type="submit" class="btn btn-primary">Become an Author</button>
-    </form>
+        <form method="POST" action="{{ route('account.requestAuthor') }}">
+            @csrf
+            <button type="submit" class="btn btn-primary mt-4">Become an Author</button>
+        </form>
     @elseif(Auth::user()->author_status === 'pending')
         <p class="text-warning">Your request to become an author is pending admin approval.</p>
     @endif
-    </div>
+    
     <div class="d-flex ml-4">
         <div class="list-1">
             <ul class="list-group">

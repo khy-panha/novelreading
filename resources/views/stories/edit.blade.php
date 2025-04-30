@@ -16,10 +16,10 @@
 <body> --}}
     <div class="series-container">
         <div class="series1">
-            <button class="series-button">1</button>Series
+            <button class="series-button1">1</button>Series
         </div>
         <div class="series2">
-            <button class="series-button">2</button> Series
+            <button class="series-button2">2</button> Series
         </div>
     </div>
     <div class="input-container">
@@ -50,7 +50,7 @@
             <div class="form-group">
                 <label for="story">Write Whole Story</label>
                 <textarea 
-                        class="ckeditor form-control auto-expand @error('story') is-invalid @enderror" 
+                        class="editor form-control auto-expand @error('story') is-invalid @enderror" 
                         placeholder="Enter your story" 
                         name="story" 
                         id="story"
@@ -80,4 +80,13 @@
 </body>
 
 </html> --}}
+<script src="https://cdn.tiny.cloud/1/42e0dksgu5dxr89y7przyvjbjvsn0kh0u1p7w3z7edtt68e9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+        selector: 'textarea#descriptionTextarea',
+        plugins: 'image link media table code lists',
+        toolbar: 'undo redo | bold italic underline | link image media table',
+    });
+</script>
 @endsection

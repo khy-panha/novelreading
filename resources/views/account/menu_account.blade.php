@@ -3,32 +3,34 @@
 @section('main')
 
 <link rel="stylesheet" href="{{ asset('css/style_for_menu_account.css') }}">
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
 <div class="account-container">
+    
     <div class="account-profile">
         @if (Auth::user()->image)
     <img src="{{ asset('uploads/profile/' . Auth::user()->image) }}" class="profile-pic" alt="Profile Picture">
 @endif
-
+        <div class="acounut-information">
         <div class="user-details">
             <h2>{{ Auth::user()->name }}</h2>
             <p>{{ Auth::user()->email }}</p>
         </div>
         <form method="POST" action="{{ route('account.logout') }}" class="account-card logout-form">
             @csrf
-            <button type="submit"> Logout</button>
+            <button type="submit" class="btn-logout">Logout</button>
         </form>
+        </div>
     </div>
 
     <div class="account-menu-grid">
-        <a href="#" class="account-card" id="editProfileBtn">👤 Edit Profile</a>
+        <a href="#" class="account-card-1" id="editProfileBtn">👤 Edit Profile</a>
 
         
-        <a href="{{ route('account.profile') }}" class="account-card">📚 My Subscriptions</a>
+        <a href="{{ route('account.profile') }}" class="account-card-1">📚 My Subscriptions</a>
         @if(Auth::check() && Auth::user()->role == 'admin')
-        <a href="{{ route('admin.dashboard') }}" class="account-card">📊Admin Dashboard</a>
+        <a href="{{ route('admin.dashboard') }}" class="account-card-1">📊Admin Dashboard</a>
         @else
-        <a href="{{ route('books.index') }}" class="account-card">📊 Dashboard</a>
+        <a href="{{ route('books.index') }}" class="account-card-1">📊 Dashboard</a>
        @endif
         
         </form>

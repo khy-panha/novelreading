@@ -30,8 +30,22 @@
             @foreach ($stories as $story)
             <div class="chapter">
                 <div class="chapter-meta">
-                    <strong>{{ $story->part }}</strong>
-                    <span>Updated {{ $story->created_at->format('M d, Y') }} • ❤️{{ $book->likes()->count() }}</span>
+                    <div class="item-text">
+                        <strong>{{ $story->part }}</strong>
+                        <span>Updated {{ $story->created_at->format('M d, Y') }} • ❤️{{ $book->likes()->count() }}</span>
+                    </div>
+                    <span class="control-btton">   
+                            <a href="{{ route('stories.create', $story->book_id) }}" class="Add-Epersode">
+                            +Add 
+                        </a>
+                        <a href="{{ route('stories.edit', [$story->book_id, $story->id]) }}" class="Edit-Eperode">
+                            Edit
+                        </a>
+                        <a href="{{ route('stories.destroy', [$story->book_id, $story->id]) }}" class="Delet-Epersode"
+                        onclick="return confirm('Are you sure you want to delete this episode?')">
+                            Delete 
+                        </a>
+                    </span>
                 </div>
             </div>
             @endforeach
@@ -40,7 +54,6 @@
         <div class="sidebar">
             <p><strong>Description:</strong></p>
             <p>{{ $book->description }}</p>
-            <a href="#" class="button">First episode</a>
         </div>
     </div>
 </div>

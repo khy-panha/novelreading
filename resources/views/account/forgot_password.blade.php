@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
 @section('main')
-<section class="p-3 p-md-4 p-xl-5">
-    <div class="container">
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<section class="section-login p-3 p-md-4 p-xl-5">
+    <div class="container-login">
         <div class="row justify-content-center">
             <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
-                <div class="card border border-light-subtle rounded-4">
-                    <div class="card-body p-3 p-md-4 p-xl-5">
+                <div class="card-login card border border-light-subtle rounded-4">
+                    <div class="card-body-login p-3 p-md-4 p-xl-5">
                         <div class="row">
                             <div class="col-12">
-                                <div class="mb-5">
+                                <div class="login-title mb-5">
                                     <h4 class="text-center">Forgot Password</h4>
                                     <p class="text-center text-muted small">Enter your email and we'll send you a link to reset your password.</p>
                                 </div>
@@ -17,7 +18,6 @@
                         </div>
 
                         <form action="{{ route('account.sendResetLink') }}" method="POST">
-
                             @csrf
                             <div class="row gy-3 overflow-hidden">
                                 <div class="col-12">
@@ -32,7 +32,7 @@
 
                                 <div class="col-12">
                                     <div class="d-grid">
-                                        <button class="btn bsb-btn-xl btn-primary py-3" type="submit">Send Reset Link</button>
+                                        <button class="btn-login btn bsb-btn-xl btn-primary py-3" type="submit">Send Reset Link</button>
                                     </div>
                                 </div>
                             </div>
@@ -40,17 +40,18 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <hr class="mt-5 mb-4 border-secondary-subtle">
-                                <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-center">
-                                    <a href="{{ route('account.login') }}" class="link-secondary text-decoration-none">Back to login</a>
+                                <hr class="login-divider mt-5 mb-4 border-secondary-subtle">
+                                <div class="login-links d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-center">
+                                    <a href="{{ route('account.login') }}" class="link-secondary text-decoration-none"><h5>Back to login</h5></a>
                                 </div>
                             </div>
                         </div>
 
-                    </div> <!-- card-body -->
-                </div> <!-- card -->
+                    </div> <!-- end card-body-login -->
+                </div> <!-- end card-login -->
             </div>
         </div>
     </div>
 </section>
 @endsection
+

@@ -6,19 +6,15 @@ use App\Notifications\ResetPasswordNotification;
 use File;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Like;
-
+use App\Models\Setting;
 use App\Models\Subscription;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Password; 
-
 use Illuminate\Support\Facades\DB;  
 use Illuminate\Support\Str;        
-use Carbon\Carbon;  
+ 
 
 class AccountController extends Controller
 {
@@ -79,7 +75,7 @@ class AccountController extends Controller
         }
     }
     
-//show user profile
+    //show user profile
     public function profile () {
         $user = User::find(Auth::user()->id);
         $totalSubscriptions = Subscription::count();
@@ -139,66 +135,78 @@ class AccountController extends Controller
         Auth::logout();
         return redirect()->route('account.logout');
      }
-        public function forgotPasswordForm()
-        {
+    public function forgotPasswordForm()
+    {
             return view('account.forgot_password');
-        }
+    }
 
     // 2. Send Reset Link to Email
     public function sendResetLink(Request $request)
-        {
+    {
         $request->validate([
             'email' => 'required|email|exists:users,email',
         ]);
 
         $user = User::where('email', $request->email)->first();
 
-        // Create a token manually
+        // Create a plain token
         $token = Str::random(60);
 
-        // Store it in password_resets table
-        DB::table('password_resets')->updateOrInsert(
-            ['email' => $user->email],
-            [
-                'token' => bcrypt($token),
-                'created_at' => Carbon::now()
-            ]
-        );
+        // Store plain token (no bcrypt)
+        DB::table('password_resets')->where('email', $request->email)->delete();
 
         // Send email manually
         $user->notify(new ResetPasswordNotification($token));
 
-        return back()->with('success', 'We have emailed your password reset link!');
+        return redirect()->route('account.login')->with('success', 'Your password has been reset!');
     }
 
-        // 3. Show Reset Password Form (from email)
-        public function resetPasswordForm($token)
-        {
-            return view('account.reset_password', ['token' => $token]);
-        }
+    // 3. Show Reset Password Form (from email)
+    public function resetPasswordForm($token)
+            {
+                return view('account.reset_password', [
+                    'token' => $token,
+                    'email' => request('email') // Pass email too
+                ]);
+      }
 
     // 4. Update New Password
     public function updatePassword(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required|confirmed|min:5',
-            'password_confirmation' => 'required'
-        ]);
-
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user, $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password)
-                ])->save();
+        {
+            // Validate that the email, password, and token are present
+            $request->validate([
+                'email' => 'required|email|exists:users,email',
+                'password' => 'required|confirmed|min:5',
+                'token' => 'required'
+            ]);
+            
+            // Check if the reset token exists for the email
+            $passwordReset = DB::table('password_resets')
+                ->where('email', $request->email)
+                ->where('token', $request->token)
+                ->first();
+        
+            // If token doesn't exist, return an error
+            if (!$passwordReset) {
+                return back()->withErrors(['email' => 'Invalid token or email.']);
             }
-        );
-
-        return $status === Password::PASSWORD_RESET
-                    ? redirect()->route('account.login')->with('success', 'Your password has been reset!')
-                    : back()->withErrors(['email' => 'Failed to reset password.']);
+        
+            // Find the user
+            $user = User::where('email', $request->email)->first();
+        
+            // Update the password and save the user
+            $user->password = Hash::make($request->password);
+            $user->save();
+        
+            // Delete the token from the database
+            DB::table('password_resets')->where('email', $request->email)->delete();
+        
+            // Redirect to login page with success message
+            return redirect()->route('account.login')->with('success', 'Your password has been reset!');
     }
+        
+        
+    
     public function menu_account () {
         $user = User::find(Auth::user()->id);
         $book = Book::first();
@@ -211,29 +219,39 @@ class AccountController extends Controller
     }
     
     public function requestAuthor()
-        {
-            $user = auth()->user();
+    {
+        $user = Auth::user();
         
-            if (getAuthorApprovalMode() === 'auto') {
-                $user->update([
-                    'role' => 'author',
-                    'author_status' => 'approved',
-                    'is_approved' => true,
-                ]);
-            } else {
-                $user->update([
-                    'author_status' => 'pending',
-                ]);
-            }
+        // Ensure that the user has not already requested author status
+        if ($user->author_status !== 'none') {
+            return redirect()->route('books.index')->with('error', 'You have already submitted a request or are already an author.');
+        }
         
-            return back()->with('success', 'Your request has been submitted.');
+        // Check the approval mode from the settings (default to 'manual' if not set)
+        $modeSetting = Setting::where('key', 'author_approval_mode')->first();
+        $mode = $modeSetting ? $modeSetting->value : 'manual';
+    
+        if ($mode === 'auto') {
+            // If the mode is auto, approve the user immediately
+            $user->author_status = 'approved';
+            $user->is_approved = true;
+            $user->role = 'author'; 
+        } else {
+            // If the mode is manual, set the status to pending
+            $user->author_status = 'pending';
+        }
+    
+        $user->save();
+    
+        // Provide feedback based on the approval mode
+        if ($mode === 'auto') {
+            return redirect()->route('books.index')->with('success', 'You have been automatically approved as an author.');
+        } else {
+            return redirect()->route('books.index')->with('success', 'Your request to become an author has been submitted and is awaiting approval.');
+        }
     }
     
-    
-
-    
-
-    
+        
 
 }
 

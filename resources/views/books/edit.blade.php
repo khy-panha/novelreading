@@ -7,10 +7,10 @@
 
     <div class="series-container">
         <div class="series1">
-            <button class="create-button">1 Series</button>
+            <button class="create-button1">1 Series</button>
         </div>
         <div class="series2">
-            <button class="create-button">2 Series</button>
+            <button class="create-button2">2 Series</button>
         </div>
     </div>
 
@@ -70,7 +70,7 @@
                 
                 <div class="form-group">
                     <label for="descriptionTextarea">Description</label>
-                    <textarea class="ckeditor form-control @error('description') is-invalid @enderror" id="descriptionTextarea" name="description" rows="3">{{old('description',$book->description)}}</textarea>
+                    <textarea class="editor form-control @error('description') is-invalid @enderror" id="descriptionTextarea" name="description" rows="3">{{old('description',$book->description)}}</textarea>
                     @error('description')
                         <p class='invalid-feedback'>{{$message}}</p>
                     @enderror
@@ -117,5 +117,14 @@
             });
         });
     </script>
+        <script src="https://cdn.tiny.cloud/1/42e0dksgu5dxr89y7przyvjbjvsn0kh0u1p7w3z7edtt68e9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+        <script>
+            tinymce.init({
+                selector: 'textarea#descriptionTextarea',
+                plugins: 'image link media table code lists',
+                toolbar: 'undo redo | bold italic underline | link image media table',
+            });
+        </script>
 </body>
 @endsection

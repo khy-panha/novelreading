@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Khmer OS Siemreap';
+    src: url('path-to-font\Khmer OS Siemreap Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 .series-container{
     display: flex;
     justify-content: center;
@@ -13,27 +19,67 @@
     border: 0px;
     border-radius: 30px; 
     width: 100px; 
-    height: 40px; 
-    background-color: rgb(204, 32, 149) ;
+    height: 50px; 
+    background-color: rgb(250, 150, 70);
     color: white;
     font-size: 14px;
     cursor: pointer;
     text-align: center;
 }
 
-
+.series2-button {
+    padding-right: 5px;
+    border: 0px;
+    border-radius: 30px; 
+    width: 100px; 
+    height: 50px; 
+    background-color: #888c90;
+    border: 1px solid rgb(228, 226, 226);
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center; 
+    color: #f8f9fa;
+}
 .series1-button:hover{
-    background-color: rgb(204, 32, 149) ;
+    background-color: rgb(232, 179, 140);
 }
 .series2-button:hover{
     background-color: #888c90;
 }
 
+.create-button2{
+    padding-right: 5px;
+    border: 0px;
+    border-radius: 30px; 
+    width: 100px; 
+    height: 50px; 
+    background-color: rgb(250, 150, 70);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
+.create-button1{
+    padding-right: 5px;
+    border: 0px;
+    border-radius: 30px; 
+    width: 100px; 
+    height: 50px; 
+    background-color: rgb(173, 172, 170);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
 .create-container{
     display: flex;
     margin: 20px;
     margin-left: 20px;
     justify-content: center;
+}
+#uploadButton{
+    background-color: rgb(250, 150, 70);
+    color: #f8f9fa;
 }
 .preview-img {
     width: 200px;
@@ -83,18 +129,7 @@ input[type="file"] {
     justify-content: flex-end; /* Align items to the right */
     padding: 20px; /* Optional padding */
 }
-.series2-button {
-    padding-right: 5px;
-    border: 0px; /* No border */
-    border-radius: 20px; /* Rounded corners */
-    width: 100px; /* Set width to 20% of the container */
-    height: 40px; /* Fixed height */
-    background-color: #888c90;
-    color: white; 
-    font-size: 14px;
-    cursor: pointer; 
-    transition: background-color 0.3s, color 0.3s;
-}
+
 
 #uploadedImage {
     display: none;
@@ -144,6 +179,16 @@ input{
     width: 200px;
     height: 300px;
 }
+.btn-updoad {
+    font-family: var(--btn-font-family);
+    background-color:rgb(250, 150, 70);
+    color: white;
+    border-radius: 5px;
+}
+.btn-updoad:hover {
+    background-color: rgb(232, 179, 140);
+    border-color:rgb(255, 146, 78);
+}
 @media (max-width: 700px) {
     .create-container {
         display: flex;
@@ -180,4 +225,8 @@ input{
     .form-container{
         margin-left: 40px;
     }
+}
+
+textarea{
+    font-family: 'Khmer OS Siemreap';
 }

@@ -2,10 +2,9 @@
 
 @section('main')
 <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-
 <div class="list-container">
     <div class="menu-on-top">
-        <div class="p-2 "> <a href="{{ route('account.profile') }}">Subscribe</a></div>
+        <div class="p-2 "> <a href="{{ route('account.profile') }}">SUBSCRIBE</a></div>
     @if (in_array(Auth::user()->role, ['author', 'admin']))
         <div class="p-2">
             <a href="{{ route('books.index') }}">DASHBOARD</a>
@@ -15,7 +14,7 @@
     </div>
     <div class="nav-btn">
         <button class="create-button">
-             <a href="{{route('books.create')}}" > + Creat  &nbsp; Series</a>
+             <a href="{{route('books.create')}}" > + Create  &nbsp; Series</a>
         </button>
     </div>
     <div class="card-container">
@@ -50,7 +49,9 @@
                  
                     
                     <div class="group-button">
-                        <button class="btn-edit"><b>Edit Episode</b></button>
+                        <button class="btn-edit">
+                            <a href="{{route('books.edit',$book->id)}}"><b>Edit Series</b></a>
+                        </button>
                         <button class="btn-edit"><a href="{{route('stories.create',$book->id)}}"><b> + Add Episode</b></a></button>
                     </div>
                 </div>
@@ -97,27 +98,7 @@
             </div>
         </div>
 </div>        
-        {{-- @if(isset($relatedBooks) && $relatedBooks->isNotEmpty())
-        @foreach($relatedBooks as $relatedBook)
-            <div class="col-md-4 col-lg-4 mb-4">
-                <div class="card border-0 shadow-lg">
-                    <a href="{{ route('book.detail', $relatedBook->id) }}">
-                        @if ($relatedBook->image != '')
-                            <img src="{{ asset('uploads/books/' . $relatedBook->image) }}" alt="" class="card-img-top">
-                        @else
-                            <img src="https://placehold.co/600x400" alt="" class="card-img-top">
-                        @endif
-                    </a>
-                    <div class="card-body">
-                        <a href="{{ route('book.detail', $relatedBook->id) }}">
-                            <h3 class="h4 heading">{{ $relatedBook->title }}</h3>
-                        </a>
-                        <p>by {{ $relatedBook->author }}</p>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    @endif --}}
+
     @endsection
     @section('script')
     <script>

@@ -30,4 +30,8 @@ class Book extends Model
     {
         return $this->hasMany(Subscription::class);
     }
+    public function views()
+    {
+        return $this->hasMany(Views::class);
+    }
 }

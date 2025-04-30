@@ -8,31 +8,45 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
 
-
+{{-- 
     <link rel="stylesheet" href="{{ asset('css/style_part.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
     {{-- <script src="/ckeditor/ckeditor.js"></script> --}}
-    <link rel="stylesheet" href="{{ asset('css/style_book.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/style_book.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('css/admin/style_admin_dashbord.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/style_pending.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/style_admin_sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/style_header.css') }}">
+
     
     <title>Admin Dashboard</title>
 </head>
-<header>
-    <!-- Main Content -->
-    <div class="header">
-        
-        <!-- Header -->
-        <header class="container">
-            <ul>
-                <li><a href="default.asp">Home</a></li>
-                <li><a href="news.asp">News</a></li>
-                <li><a href="contact.asp">Contact</a></li>
-                <li><a href="about.asp">About</a></li>
-              </ul>
+
+        <header class="admin-header">
+            <h1>Admin Dashboard</h1>
+            <div class="admin-header-controls">
+           
+                <a href="{{route('home')}}" class="logo">ReadNovel</a>
+              
+                <div class="navbar-item">
+                    <span class="admin-header-user-info">👤 Admin {{ Auth::user()->name }}</span>
+                    {{-- <a href="#contact" class="navbar-link" data-nav-link>Account</a> --}}
+                    @if (Auth::check())
+                    <a href="{{route ('account.profile')}}" class="navbar-link"">My Account</a>
+                    @else
+                    
+                    <a href="{{route ('account.login')}}" class="navbar-link">Login</a>
+                    <a href="{{route ('account.register')}}" class="navbar-link">Register</a>
+                    @endif
+                </div>
+                  <form method="POST" action="{{ route('account.logout') }}" class="account-card logout-form">
+                    @csrf
+                    <button type="submit" class="admin-logout-button" ">Logout 🔓</button>
+                </form>
+            </div>
+
         </header>
 
-    </div>
-
-</header>
 <body class="bg-light">
     
     @yield('main')

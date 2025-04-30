@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StoryController;
 use Illuminate\Support\Facades\Route;
@@ -21,50 +22,8 @@ Route::get('/book/{bookId}/story/{storyId}', [HomeController::class, 'showStoryP
 
 Route::post('/book/{bookId}/track-view', [HomeController::class, 'trackView'])->name('book.trackView');
 Route::get('/book/{bookId}/update-view-count', [HomeController::class, 'updateViewCount'])->name('book.updateViewCount');
-
-
-
-
-// Route::group(['prefix' => 'account'],function(){
-
-//     Route::group(['middleware'=>'guest'],function(){
-//         Route::get('register',[AccountController::class,'register'])->name('account.register');
-//         Route::post('register',[AccountController::class,'processRegister'])->name('account.processRegister');
-//         Route::get('login',[AccountController::class,'login'])->name('account.login');Route::post('account/register',[AccountController::class,'processRegister'])->name('account.processRegister');
-//         Route::post('login',[AccountController::class,'authenticate'])->name('account.authenticate'); 
-//         Route::post('/logout', [AccountController::class, 'logout'])->name('account.logout');
-//     });
-//     Route::group(['middleware'=>'auth'],function(){
-//         Route::get('profile',[AccountController::class,'profile'])->name('account.profile');
-//         Route::get('account', [AccountController::class,'menu_account'])->name('account.menu_account');
-//         Route::get('logout',[AccountController::class,'logout'])->name('account.logout');
-//         Route::post('udate-profile',[AccountController::class,'updateProfile'])->name('account.updateProfile');
-//         Route::get('books',[BookController::class,'index'])->name('books.index');
-//         // Route::get('books/auth',[BookController::class,'auth'])->name('books.auth');
-//         Route::get('books/create',[BookController::class,'create'])->name('books.create');
-//         Route::post('books',[BookController::class,'store'])->name('books.store');
-//         Route::get('books/edit/{id}',[BookController::class,'edit'])->name('books.edit');
-//         Route::post('books/edit/{id}',[BookController::class,'update'])->name('books.update');
-//         Route::delete('books',[BookController::class,'destroy'])->name('books.destroy');
-
-//         Route::get('/books/{book}/stories', [StoryController::class, 'index'])->name('stories.index');
-//         Route::get('/books/{book}/stories/create', [StoryController::class, 'create'])->name('stories.create');
-//         Route::post('/books/{book}/stories', [StoryController::class, 'store'])->name('stories.store');
-//         Route::get('/books/{book}/stories/{story}/edit', [StoryController::class, 'edit'])->name('stories.edit');
-//         Route::put('/books/{book}/stories/{story}', [StoryController::class, 'update'])->name('stories.update');
-//         Route::delete('/books/{book}/stories/{story}', [StoryController::class, 'destroy'])->name('stories.destroy');
-
-
-
-
-//         // Routes for liking and subscribing
-//         Route::post('/book/{book}/like', [BookController::class, 'likeBook'])->name('book.like');
-//         Route::post('/book/{book}/subscribe', [BookController::class, 'subscribeToBook'])->name('book.subscribe');
-
-        
-//     });
-// });
-
+Route::get('/books/most-viewed', [HomeController::class, 'mostViewed'])->name('books.most_viewed');
+Route::get('/search', [HomeController::class, 'search'])->name('book.search');
 
 Route::prefix('account')->group(function () {
 
@@ -96,9 +55,13 @@ Route::prefix('account')->group(function () {
         Route::post('/logout', [AccountController::class, 'logout'])->name('account.logout');
         Route::post('/request-author', [AccountController::class, 'requestAuthor'])->name('account.requestAuthor');
 
+
         // 👍 User interactions: like and subscribe
         Route::post('/book/{book}/like', [BookController::class, 'likeBook'])->name('book.like');
         Route::post('/book/{book}/subscribe', [BookController::class, 'subscribeToBook'])->name('book.subscribe');
+
+        // Route::get('contact', [FeedbackController::class, 'showForm'])->name('home');
+        Route::post('contact', [FeedbackController::class, 'submitForm'])->name('contact.submit');
     });
 
     // ✏️ Author (and Admin) routes - book & story management
@@ -118,6 +81,9 @@ Route::prefix('account')->group(function () {
         Route::get('/books/{book}/stories/{story}/edit', [StoryController::class, 'edit'])->name('stories.edit');
         Route::put('/books/{book}/stories/{story}', [StoryController::class, 'update'])->name('stories.update');
         Route::delete('/books/{book}/stories/{story}', [StoryController::class, 'destroy'])->name('stories.destroy');
+        Route::post('/book/{book}/like', [BookController::class, 'likeBook'])->name('book.like');
+        Route::post('/book/{book}/subscribe', [BookController::class, 'subscribeToBook'])->name('book.subscribe');
+
     });
 
     // 🛠️ Admin-only routes
@@ -125,15 +91,7 @@ Route::prefix('account')->group(function () {
         // Dashboard
         Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
         Route::get('/users', [AdminController::class, 'manageUsers'])->name('admin.users');
-        Route::get('/books', [AdminController::class, 'manageBooks'])->name('admin.books');
-        Route::resource('admin/books', BookController::class)->names([
-            'index' => 'admin.books.index',
-            'create' => 'admin.books.create',
-            'store' => 'admin.books.store',
-            'edit' => 'admin.books.edit',
-            'update' => 'admin.books.update',
-            'destroy' => 'admin.books.destroy',
-        ]);
+     
         Route::get('/categories', [AdminController::class, 'manageCategories'])->name('admin.categories');
         Route::get('/subscriptions', [AdminController::class, 'manageSubscriptions'])->name('admin.subscriptions');
         Route::get('/analytics', [AdminController::class, 'analytics'])->name('admin.analytics');

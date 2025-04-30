@@ -1,7 +1,6 @@
 .account-container {
     max-width: 800px;
-    margin-top: 300px;
-    margin: 80px auto;
+    margin: 120px auto;
     padding: 20px;
     background: #fff;
     border-radius: 16px;
@@ -41,69 +40,69 @@
     gap: 16px;
 }
 
-.account-card {
-    padding: 16px;
-    background-color: #f5f5f5;
-    text-align: center;
-    font-weight: bold;
-    font-size: 16px;
-    border-radius: 12px;
-    color: #333;
-    text-decoration: none;
-    transition: background 0.3s;
+.acounut-information {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
 
-.account-card:hover {
+.account-card-1{
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.3s;
+}
+
+
+.account-card-1:hover {
     background-color: #d8d8d8;
+    transform: translateY(-2px);
 }
 
 .logout-form {
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.logout-form button {
-    background: none;
-    border: none;
-    font-weight: bold;
-    font-size: 16px;
-    color: #e74c3c;
-    cursor: pointer;
+    justify-content: flex-end;
     width: 100%;
-    padding: 16px;
-    border-radius: 12px;
-    background-color: #fcecec;
-    transition: background 0.3s;
+    align-items: center;
+    margin-right: 10px;
 }
 
-.logout-form button:hover {
-    background-color: #f8c1c1;
+.btn-logout {
+    background-color: #dc3545;
+    color: #ffffff;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    text-align: center;
+    height: 40px;
+    width: 60px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    padding-right: 10px;
+
 }
-@media (max-width: 480px) {
-    .account-profile {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
 
-    .user-details h2 {
-        font-size: 20px;
-    }
-
-    .user-details p {
-        font-size: 14px;
-    }
-
-    .account-menu-grid {
-        grid-template-columns: 1fr;
-    }
+.btn-logout:hover {
+    background-color: #bb2d3b;
+    color: #ffffff;
 }
+
+.edit-profile-form {
+    margin-top: 20px;
+}
+
 .card-body {
     background-color: #fff;
     border-radius: 12px;
     padding: 30px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 600px;
     margin: 0 auto;
 }
@@ -117,7 +116,6 @@
 .form-control {
     border-radius: 8px;
     padding: 10px 14px;
-    border: 1px solid #ccc;
     transition: border-color 0.3s;
 }
 
@@ -154,3 +152,23 @@
     border: 1px solid #c3e6cb;
 }
 
+/* Responsive */
+@media (max-width: 480px) {
+    .account-profile {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .user-details h2 {
+        font-size: 20px;
+    }
+
+    .user-details p {
+        font-size: 14px;
+    }
+
+    .account-menu-grid {
+        grid-template-columns: 1fr;
+    }
+}

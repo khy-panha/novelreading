@@ -6,13 +6,14 @@
     <title>Book Review App</title>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 
     <link rel="stylesheet" href="{{ asset('css/style_part.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     {{-- <script src="/ckeditor/ckeditor.js"></script> --}}
-    <link rel="stylesheet" href="{{ asset('css/style_book.css') }}">
+    <link rel="stylesheet" href="{{ asset('css\book\style_book.css') }}">
     
 </head>
 
@@ -37,8 +38,14 @@
               </li>
     
               <li class="navbar-item">
-                <input  class="search" type="text" id="searchInput" value="{{Request::get('keyword')}}" placeholder="Search for a book..." name="keyword" placeholder="Search by title">
-                {{-- <button class="btn btn-primary btn-lg w-100"><i class="fa-solid fa-magnifying-glass"></i></button> --}}
+                <form action="{{ route('book.search') }}" method="GET" class="d-flex">
+                  <input class="search-header " type="text" id="searchInput"
+                      placeholder="Search for a book..." name="keyword"
+                      placeholder="Search by title, author, or genre" value="{{ request('keyword') }}">
+                      <button type="submit" class="search-button ">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </button>
+              </form>
               </li>
     
               <li class="navbar-item">
@@ -82,11 +89,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script> --}}
     {{-- <script src="https://cdn.ckeditor.com/4.25.0-lts/standard/ckeditor.js"></script> --}}
     {{-- <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script> --}}
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
     @yield('script')
 </body>
 

@@ -9,37 +9,69 @@
 .series2{
     padding-left: 20%;
 }
-.series-button {
-    width: 30px; /* Set width and height to define the circle */
+.series-button1 {
+    width: 30px; 
     height: 30px;
-    padding: 0; /* Remove padding to ensure circular shape */
+    padding: 0; 
     border: 0;
-    border-radius: 50%; /* Makes the button circular */
-    background-color: #888c90;
+    border-radius: 50%; 
+    background-color: #cd5200;
     color: white;
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-    display: flex; /* Flexbox to center number */
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    margin-right: 5px; /* Space between button and text */
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    margin-right: 5px;
+}
+.series-button {
+    width: 30px; 
+    height: 30px;
+    padding: 0; 
+    border: 0;
+    border-radius: 50%; 
+    background-color: #cd5200;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    margin-right: 5px;
 }
 
+
 .series-button:hover {
-    background-color: #525557;
+    background-color: #ed9016;
     color: #f8f9fa;
 }
 
+.series-button1:hover {
+    background-color: #ed9016;
+    color: #f8f9fa;
+}
 .series1, .series2 {
     display: flex; /* Aligns button and text horizontally */
     align-items: center; /* Center vertically in the container */
 }
 
-
+.series-button2{
+    padding-right: 5px;
+    border: 0px;
+    border-radius: 30px; 
+    width: 100px; 
+    height: 50px; 
+    background-color: rgb(173, 172, 170);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
 .input-container{
-    margin: 30px;
-    padding: 30px;
+    margin: 10px;
+    padding: 10px;
 }    
 .list-title{
    margin-top: 20px;
@@ -50,6 +82,8 @@
 }
 .form-control{
     margin-top: 20px;
+    height: 40px;
+    font-size: 16px;
     /* min-width: 300px; */
 }
 
@@ -110,4 +144,55 @@
 .create-button:hover {
     background-color: #525557; 
     color: #f8f9fa; 
+}
+
+.series-container-story{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(228, 226, 226);
+}
+
+.series-button1 {
+    padding-right: 5px;
+    border: 0px;
+    border-radius: 30px; 
+    width: 100px; 
+    height: 50px;  
+    background-color: rgb(250, 150, 70);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
+.series-button {
+    padding-right: 5px;
+    border: 0px;
+    border-radius: 30px; 
+    width: 100px; 
+    height: 50px;  
+    background-color: rgb(130, 129, 129);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
+.series2-button:hover{
+    background-color: #888c90;
+}
+@media (max-width: 950px) {
+    .series-container-story{
+        margin-top: 90px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 60px;
+        align-items: center;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(228, 226, 226);
+    }
 }

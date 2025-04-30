@@ -2,6 +2,7 @@
 
 @section('main')
 <link rel="stylesheet" href="{{ asset('css/styles1.css') }}">
+
 <body>
     @include('layouts.message')
 
@@ -19,7 +20,7 @@
         <div class="create-container">
             <div class="upload-container">
                 <input type="file" id="fileInput" accept="image/*" name="image" style="display: none;">
-                <button type="button" id="uploadButton" class="btn btn-primary @error('image') is-invalid @enderror">Upload Image</button>
+                <button type="button" id="uploadButton" class="btn-updoad @error('image') is-invalid @enderror">Upload Image</button>
                 <br>
                 <img id="uploadedImage" alt="Uploaded Image" style="display: none; max-width: 100px;">
                 @error('image')
@@ -103,7 +104,8 @@
                 
                 <div class="form-group">
                     <label for="descriptionTextarea">Description</label>
-                    <textarea class="ckeditor form-control @error('description') is-invalid @enderror" id="descriptionTextarea" name="description" rows="3">{{ old('description') }}</textarea>
+                    <textarea class="editor form-control @error('description') is-invalid @enderror" id="descriptionTextarea" name="description" rows="3">{{ old('description') }}</textarea>
+
                     @error('description')
                         <p class='invalid-feedback'>{{$message}}</p>
                     @enderror
@@ -150,5 +152,15 @@
             });
         });
     </script>
-</body>
+    
+    <script src="https://cdn.tiny.cloud/1/42e0dksgu5dxr89y7przyvjbjvsn0kh0u1p7w3z7edtt68e9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea#descriptionTextarea',
+            plugins: 'image link media table code lists',
+            toolbar: 'undo redo | bold italic underline | link image media table',
+        });
+    </script>
+
 @endsection

@@ -31,14 +31,17 @@ class ResetPasswordNotification extends Notification
     /**
      * Build the email message
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail($notifiable)
     {
+        $url = url('/reset-password/' . $this->token . '?email=' . urlencode($notifiable->email));
+    
         return (new MailMessage)
-            ->subject('Reset Your Password')
-            ->line('You requested to reset your password.')
-            ->action('Reset Password', url(route('account.resetPassword', $this->token)))
+            ->subject('Reset Password')
+            ->line('Click the button below to reset your password.')
+            ->action('Reset Password', $url)
             ->line('If you did not request a password reset, no further action is required.');
     }
+    
 
     /**
      * Optional array format

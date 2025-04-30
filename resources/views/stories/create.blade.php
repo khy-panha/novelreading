@@ -2,8 +2,8 @@
 @extends('layouts.app')
 
 @section('main')
-
-    <div class="series-container">
+<link rel="stylesheet" href="{{ asset('css/styles_part.css') }}">
+    <div class="series-container-story">
         <div class="series1">
             <button class="series-button1">1 Series</button>
         </div>
@@ -25,7 +25,7 @@
         
             <div class="form-group">
                 <label for="story">Write Whole Story</label>
-                <textarea class="ckeditor form-control auto-expand" name="story" id="story" placeholder="Story" rows="1">{{ old('story') }}</textarea>
+                <textarea class="editor form-control auto-expand" name="story" id="descriptionTextarea" placeholder="Story" rows="1">{{ old('story') }}</textarea>
             </div> 
         
             <div class="status-group">
@@ -47,15 +47,14 @@
 @section('script')
 
 <!-- Auto-expand Textarea -->
-<script> 
-    CKEDITOR.replace('story');
-    document.addEventListener("DOMContentLoaded", function () {
-        const textarea = document.querySelector(".auto-expand");
 
-        textarea.addEventListener("input", function () {
-            this.style.height = "auto";
-            this.style.height = (this.scrollHeight) + "px";
-        });
+<script src="https://cdn.tiny.cloud/1/42e0dksgu5dxr89y7przyvjbjvsn0kh0u1p7w3z7edtt68e9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+        selector: 'textarea#descriptionTextarea',
+        plugins: 'image link media table code lists',
+        toolbar: 'undo redo | bold italic underline | link image media table',
     });
 </script>
 @endsection

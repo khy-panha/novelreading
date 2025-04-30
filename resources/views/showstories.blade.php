@@ -81,7 +81,134 @@
         
         </div>
       </section>
-      
+      <section class="comment">
+        @if (Auth::guest())
+        <script>
+            function showAlert() {
+                alert("Please Login First!");
+            }
+        </script>
+        <a href="{{ route('account.login') }}">
+          <div class="comment-container">
+            <h2>Raise Your Comment and Rating Here...</h2>
+            <button onclick="openModal()" class="rating-and-comment">Rate & Comment</button>
+          </div>
+        </a>
+    @else
+        @if (Auth::user()->role !== 'auth') {{-- Allow all roles except restricted authors --}}
+            <section class="section rating" aria-label="rating">
+              <div class="comment-container">
+                <h2>Raise Your Comment and Rating Here...</h2>
+                <button onclick="openModal()" class="rating-and-comment">Rate & Comment</button>
+              </div>
+                <div class="comments-list" id="commentSection">
+                    @foreach ($book->comments as $comment)
+                        <div class="card border-0 shadow-lg my-4">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between"> 
+                                    <h5 class="mb-3">{{ $comment->user->name }}</h5>
+                                    <span class="text-muted">
+                                        {{ \Carbon\Carbon::parse($comment->created_at)->format('d M, Y') }}
+                                    </span>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="star-rating d-inline-flex">
+                                        <div class="back-stars">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            @endfor
+                                            <div class="front-stars" style="width: {{ $comment->rating * 20 }}%">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="theme-font theme-yellow">{{ $comment->rating }} / 5</span>
+                                </div>
+                                <div class="content">
+                                    <p>{{ $comment->comment }}</p>
+                                </div>
+    
+                                @if (auth()->user()->id == $comment->user_id || auth()->user()->id == $comment->book->user_id)
+                                    <form action="{{ route('comment.delete', $comment->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="delete-comment">Delete Comment</button>
+                
+                                    </form>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </section>
+        @endif
+    @endif
+    
+    <div id="commentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <section class="section comment" aria-label="comment">
+                <div class="content mt-3">
+                    <div class="comment-box">
+                        <h1>Rate and Comment</h1>
+                        <form method="POST" action="{{ route('book.saveComment') }}" id="ratingForm">
+                            @csrf
+                            <input type="hidden" name="book_id" value="{{ $book->id }}">
+                              
+                            <div class="star-rating" style="display: flex; flex-direction: row;">
+                                @foreach (range(5, 1) as $i)
+                                    <input id="star{{ $i }}" type="radio" name="rating" value="{{ $i }}" required />
+                                    <label for="star{{ $i }}">★</label>
+                                @endforeach
+                            </div>
+    
+                            <textarea name="comment" id="commentText" rows="4" placeholder="Write a comment..." required></textarea>
+                            <button type="submit" class="comment-btn">Submit</button>
+                        </form>
+    
+                       
+                    </div>
+                </div>
+            </section>
+        </div>
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    </div>
+      </section>
+      <section class="related-books-section">
+        <div class="book-list-container">
+            <div class="book-list-column">
+                <ul class="book-list">
+                    <li class="book-list-title">Most Views</li>
+                    @if(isset($relatedBooks) && $relatedBooks->isNotEmpty())
+                        @foreach ($relatedBooks as $relatedBook)
+                            <li class="book-list-item">
+                                <a href="{{ route('book.detail', $relatedBook->id) }}">
+                                    <img src="{{ asset('uploads/books/' . $relatedBook->image) }}" class="book-cover">
+                                </a>
+                                <div class="text">
+                                    <h3 class="book-title">{{ $relatedBook->title }}</h3>
+                                    <p class="book-author">by {{ $relatedBook->author }}</p>
+                                </div>
+                            </li>
+                        @endforeach
+                    @else
+                        <li class="book-list-item">No related books found.</li>
+                    @endif
+                </ul>
+            </div>
+            <div class="book-list-column">
+                <ul class="book-list">
+                    <li class="book-list-title">Most By Genre</li>
+                    </ul>
+            </div>
+        </div>
+    </section>
     </article>
   </main>
 
@@ -89,13 +216,13 @@
     - #FOOTER
   -->
   <footer class="footer">
-    <!-- <div class="container">
+    <div class="container">
       <div class="footer-bottom">
         <p class="copyright">
           © 2025 All rights reserved. Made with ❤ by MemeTeam.
         </p>
       </div>
-    </div> -->
+    </div>
   </footer>
 
   <!-- 

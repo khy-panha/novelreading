@@ -1,3 +1,18 @@
+.account-container{
+    margin-top: 100px;
+}
+
+@media (max-width: 995px) {
+    .account-container{
+        margin-top: 100px;
+    }
+
+    .text{
+        margin-left: 40px;
+        margin-top: 20px;
+    
+    }
+}
 .profile {
     display: flex;
     align-items: center;  
@@ -34,7 +49,7 @@
     width: 100%;
     align-items: center;
     background-color: #ffffff;
-    margin-top: 70px;
+    /* margin-top: 70px; */
 }
 
 .p-2-subscribe{
@@ -99,12 +114,13 @@
     background-color: #f8f9fa; /* Light background on hover */
 }
 .card-img-top{
-    width: 160px;
-    height: 160px;
+    width: 200px;
+    height: 200px;
 }
 .text{
-    margin-left: 20px;
+    margin-left: 40px;
     margin-top: 20px;
+
 }
 .d-flex {
     display: flex; 
@@ -170,8 +186,10 @@ h5 {
         height: 120px;
     }
 
-    .text {
-        margin: 10px 0 0 0;
+     .text{
+        margin-left: 40px;
+        margin-top: 20px;
+    
     }
 }
 
@@ -199,5 +217,19 @@ h5 {
 
     .menu-on-top {
         flex-direction: column;
+    }
+    .d-flex {
+        margin: 300px;
+        justify-content: raw;
+        display: flex;
+        flex-direction: raw;
+        margin-left: 40px;
+        margin-right: 40px;
+        padding: 30px;
+    }
+    .text{
+        margin-left: 20px;
+        margin-top: 20px;
+    
     }
 }

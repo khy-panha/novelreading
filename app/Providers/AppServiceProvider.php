@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use App\Services\TotalService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,13 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         Paginator::useBootstrapFive();
+    }
+
+    public function registers()
+    {
+        $this->app->singleton(TotalService::class, function ($app) {
+            return new TotalService();
+        });
     }
 
     /**
